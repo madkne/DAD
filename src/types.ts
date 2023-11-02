@@ -48,3 +48,5 @@ export enum HttpStatusCode {
 
 export type SwaggerDataType = 'array' | 'string' | 'integer' | 'object' | 'number' | 'boolean' | 'file';
 export type SwaggerDataTypeFormat = 'int32' | 'int64' | 'string' | 'password' | 'date-time' | 'date' | 'binary' | 'byte' | 'double' | 'float';
+
+export type HttpResponse = [string, HttpStatusCode, string];

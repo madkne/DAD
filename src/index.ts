@@ -1,6 +1,7 @@
 import { debugLog, infoLog, loadEnvFile } from "./common";
 import { Global } from "./global";
 import { ServerDatabase } from "./internal-db/database";
+import { WebServer } from "./server/webserver";
 import { APP_NAME, APP_SHORTENED, APP_TEXT_ART, VERSION } from "./version";
 
 
@@ -22,7 +23,7 @@ async function main() {
             await Global.IDB.syncInitModels(false, Global.IDB.alterModels);
 
             // =>init webserver
-            // await WebServer.initWebServer();
+            await WebServer.initWebServer();
         }
     });
 }

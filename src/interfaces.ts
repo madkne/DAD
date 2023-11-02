@@ -1,6 +1,6 @@
-import { APINamespace, DatabaseType, InternalDatabaseType, MiddlewareName, RequestMethodType, SwaggerDataType, SwaggerDataTypeFormat } from "./types";
+import { APINamespace, DatabaseType, HttpStatusCode, InternalDatabaseType, MiddlewareName, RequestMethodType, SwaggerDataType, SwaggerDataTypeFormat } from "./types";
 
-export const EnvironmentVariablesKeys = ['ROOT_USERNAME', 'ROOT_PASSWORD', 'DB_CONNECTION', 'DB_PATH', 'DB_USERNAME', 'DB_PASSWORD', 'DB_HOST', 'DB_PORT', 'DB_NAME', 'DS_TYPES', 'DEBUG_MODE', 'STORAGE_PATH', 'HTTP_PORT', 'SWAGGER_BASE_URL', 'HOSTNAME', 'AUTH_HEADER_NAME'];
+export const EnvironmentVariablesKeys = ['ROOT_USERNAME', 'ROOT_PASSWORD', 'DB_CONNECTION', 'DB_PATH', 'DB_USERNAME', 'DB_PASSWORD', 'DB_HOST', 'DB_PORT', 'DB_NAME', 'DS_TYPES', 'DEBUG_MODE', 'STORAGE_PATH', 'UPLOADS_PATH', 'HTTP_PORT', 'SWAGGER_BASE_URL', 'SWAGGER_DISABLED', 'HOSTNAME', 'AUTH_HEADER_NAME', 'SSL', 'SSL_PRIVATE_KEY_PATH', 'SSL_CERTIFICATE_PATH'];
 
 export interface EnvironmentVariables {
     /**
@@ -44,6 +44,10 @@ export interface EnvironmentVariables {
      */
     STORAGE_PATH?: string;
     /**
+     * @default ./storage/uploads
+     */
+    UPLOADS_PATH?: string;
+    /**
      * @default 8082
      */
     HTTP_PORT?: number;
@@ -52,6 +56,10 @@ export interface EnvironmentVariables {
      */
     SWAGGER_BASE_URL?: string;
     /**
+     * @default false
+     */
+    SWAGGER_DISABLED?: boolean;
+    /**
      * @default localhost
      */
     HOSTNAME?: string;
@@ -59,13 +67,16 @@ export interface EnvironmentVariables {
      * @default Authorization
      */
     AUTH_HEADER_NAME?: string;
+
+    SSL?: boolean;
+    SSL_PRIVATE_KEY_PATH?: string;
+    SSL_CERTIFICATE_PATH?: string;
 }
 
 
 export interface ApiRoute {
     method: RequestMethodType;
     path: string;
-    namespace: APINamespace;
     // response: (req: Request, res: Response) => any;
     functionName: string;
     includeMiddlewares?: MiddlewareName[];
@@ -113,6 +124,10 @@ export interface ApiRoute {
      * select interfaces, types of source code
      */
     usedDefinitions?: string[];
+    /**
+     * fill by auto
+     */
+    namespace?: APINamespace;
 }
 
 export interface SwaggerDefinition {
@@ -186,4 +201,27 @@ export interface SwaggerApiParameter {
     };
     collectionFormat?: 'multi';
     default?: any;
+}
+
+
+
+export interface APIResponse<T = any> {
+    success: boolean;
+    message?: string;
+    data: T;
+    responseTime?: number;
+    statusCode: HttpStatusCode;
+    paginate?: APIResponsePagination,
+    error?: any;
+}
+
+export interface APIResponsePagination {
+    page_size: number;
+    page: number;
+    page_count: number;
+}
+
+export interface DefinedAPINamespace {
+    name: APINamespace;
+    description?: string;
 }

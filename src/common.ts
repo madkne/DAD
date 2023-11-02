@@ -20,9 +20,9 @@ export function loadEnvFile() {
         if (!envVariables.ROOT_PASSWORD) envVariables.ROOT_PASSWORD = 'root';
         if (!envVariables.STORAGE_PATH) {
             envVariables.STORAGE_PATH = path.join(__dirname, 'storage');
-            if (!fs.existsSync(envVariables.STORAGE_PATH)) {
-                fs.mkdirSync(envVariables.STORAGE_PATH, { recursive: true });
-            }
+        }
+        if (!envVariables.UPLOADS_PATH) {
+            envVariables.UPLOADS_PATH = path.join(__dirname, 'storage', 'uploads');
         }
         if (!envVariables.HTTP_PORT)
             envVariables.HTTP_PORT = 8082;
@@ -52,9 +52,15 @@ export function loadEnvFile() {
 
 
         Global.ENV = envVariables;
-        // =>create logs folder
+        // =>create folders, if not exist
+        if (!fs.existsSync(envVariables.STORAGE_PATH)) {
+            fs.mkdirSync(envVariables.STORAGE_PATH, { recursive: true });
+        }
         if (!fs.existsSync(logsPath())) {
-            fs.mkdirSync(logsPath());
+            fs.mkdirSync(logsPath(), { recursive: true });
+        }
+        if (!fs.existsSync(envVariables.UPLOADS_PATH)) {
+            fs.mkdirSync(envVariables.UPLOADS_PATH, { recursive: true });
         }
         // debugLog(JSON.stringify(Global.ENV, null, 2));
         return envVariables;
@@ -202,9 +208,14 @@ export async function sleep(timeout = 1000) {
 //     }
 // }
 /***************************************** */
+export function baseUrl(){
+
+    return `${Global.ENV?.SSL ? 'https' : 'http'}://${Global.ENV?.HOSTNAME}:${Global.ENV?.HTTP_PORT}`;
+}
+/***************************************** */
 export function absUrl(path: string) {
     if (path.startsWith('/')) path = path.substring(1);
-    return `http://${Global.ENV?.HOSTNAME}:${Global.ENV?.HTTP_PORT}/${path}`;
+    return `${baseUrl()}/${path}`;
 
 }
 /***************************************** */

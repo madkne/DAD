@@ -15,6 +15,10 @@ export function load() {
         },
         username: DataTypes.STRING,
         password: DataTypes.STRING,
+        admin_level: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
+        },
         settings: DataTypes.JSON(),
 
         online_at: DataTypes.DATE(6),
