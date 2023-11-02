@@ -29,11 +29,12 @@ export function loadEnvFile() {
 
         if (!envVariables.DB_CONNECTION) {
             envVariables.DB_CONNECTION = 'sqlite';
-            if (!envVariables.DB_PATH) envVariables.DB_PATH = path.join(envVariables.STORAGE_PATH, 'db.sqlite');
         }
+        if (!envVariables.DB_PATH && envVariables.DB_CONNECTION == 'sqlite') envVariables.DB_PATH = path.join(envVariables.STORAGE_PATH, 'db.sqlite');
         if (!envVariables.DS_TYPES || envVariables.DS_TYPES.length == 0) {
             envVariables.DS_TYPES = 'sqlite' as any;
         }
+        if (!envVariables.DB_NAME) envVariables.DB_NAME = 'dad_db';
         if (envVariables.DEBUG_MODE === undefined) envVariables.DEBUG_MODE = false;
         if (!envVariables.SWAGGER_BASE_URL) envVariables.SWAGGER_BASE_URL = '/api-docs';
         if (!envVariables.HOSTNAME) envVariables.HOSTNAME = 'localhost';
@@ -93,7 +94,7 @@ export function logsPath() {
 /***************************************** */
 export function infoLog(name: string, message: string) {
     // if (Const.SERVER_MODE !== 'test') {
-    //     log(message, name, 'info');
+    log(message, name, 'info');
     // }
     try {
         if (typeof message === 'object') {
@@ -106,16 +107,14 @@ export function infoLog(name: string, message: string) {
     }
 }
 /***************************************** */
-export function debugLog(name: string, message: string) {
+export function debugLog(name: string, message: string | object) {
     // console.log(settings('DEBUG_MODE'))
     if (!Global.ENV || !Global.ENV.DEBUG_MODE) return;
-    // if (Const.SERVER_MODE !== 'test') {
-    //     log(message, name, 'debug');
-    // }
     try {
         if (typeof message === 'object') {
             message = JSON.stringify(message);
         }
+        log(message as any, name, 'debug');
         writeLogOnFile('debug', `${name} ${message}`);
     } catch (e) {
         log(`can not write on ${path.join(logsPath(), 'debug')} file`, 'err455563', 'error');

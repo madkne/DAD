@@ -1,6 +1,6 @@
 import { APINamespace, DatabaseType, InternalDatabaseType, MiddlewareName, RequestMethodType, SwaggerDataType, SwaggerDataTypeFormat } from "./types";
 
-export const EnvironmentVariablesKeys = ['ROOT_USERNAME', 'ROOT_PASSWORD', 'DB_CONNECTION', 'DB_PATH', 'DB_USERNAME', 'DB_PASSWORD', 'DB_HOST', 'DB_PORT', 'DS_TYPES', 'DEBUG_MODE', 'STORAGE_PATH', 'HTTP_PORT', 'SWAGGER_BASE_URL', 'HOSTNAME', 'AUTH_HEADER_NAME'];
+export const EnvironmentVariablesKeys = ['ROOT_USERNAME', 'ROOT_PASSWORD', 'DB_CONNECTION', 'DB_PATH', 'DB_USERNAME', 'DB_PASSWORD', 'DB_HOST', 'DB_PORT', 'DB_NAME', 'DS_TYPES', 'DEBUG_MODE', 'STORAGE_PATH', 'HTTP_PORT', 'SWAGGER_BASE_URL', 'HOSTNAME', 'AUTH_HEADER_NAME'];
 
 export interface EnvironmentVariables {
     /**
@@ -23,8 +23,12 @@ export interface EnvironmentVariables {
     DB_PATH?: string;
     DB_USERNAME?: string;
     DB_PASSWORD?: string;
-    DB_HOST?: number;
+    DB_HOST?: string;
     DB_PORT?: number;
+    /**
+     * @default dad_db
+     */
+    DB_NAME?: string;
 
     /**
      * used for projects data sources to install their db drivers
