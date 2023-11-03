@@ -1,8 +1,14 @@
-import { DBConfigKey } from "../../types";
+import { DBConfigKey, DatabaseType } from "../../types";
 
-
-export interface UserModel {
+export interface _BaseModel {
     id?: number;
+
+    created_at?: number;
+    updated_at?: number;
+    deleted_at?: number;
+}
+
+export interface UserModel extends _BaseModel {
     username: string;
     password?: string;
     /**
@@ -11,9 +17,6 @@ export interface UserModel {
     admin_level?: number;
     settings?: {};
     online_at?: number;
-    created_at?: number;
-    updated_at?: number;
-    deleted_at?: number;
 }
 
 export type ConfigValueType = 'number' | 'string' | 'json';
@@ -40,4 +43,18 @@ export interface SessionModel {
     checked_refresh_token_at: number;
     expired_token_at: number;
     created_at: number;
+}
+
+export interface ProjectModel extends _BaseModel {
+    name: string;
+
+    settings?: {};
+}
+
+export interface DataSourceModel extends _BaseModel {
+    project_id: number;
+    name: string;
+    source_type: DatabaseType;
+    settings?: {};
+
 }

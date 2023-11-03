@@ -6,6 +6,7 @@ import { WebRoutes } from '../routes';
 import * as url from 'url';
 import { Global } from '../../global';
 import { UserModel } from '../../internal-db/models/interfaces';
+import { Auth } from '../auth';
 
 export function middleware() {
    return Authentication;
@@ -67,8 +68,7 @@ export class Authentication extends Middleware {
    async getUserBySessionToken(authToken: string): Promise<UserModel | 'expired' | 'invalid'> {
       let startTime = new Date().getTime();
       // =>check if directly method
-      let res = 'invalid';//await Auth.getUserByDirectlyToken(authToken);
-      // console.log(res)//TODO:
+      let res = await Auth.getUserByToken(authToken);
       if (res !== 'invalid') {
          return res as any;
       }

@@ -86,7 +86,7 @@ export namespace Auth {
         return hash;
     }
     /********************************* */
-    export async function getUserByDirectlyToken(token: string): Promise<UserModel | 'expired' | 'invalid'> {
+    export async function getUserByToken(token: string): Promise<UserModel | 'expired' | 'invalid'> {
         // =>check token sign
         if (!token.startsWith(tokenSign)) return 'invalid';
         // =>find user session by token

@@ -3,7 +3,7 @@ import express, { Express } from 'express';
 import * as path from 'path';
 import * as fs from 'fs';
 // import { Swagger } from './document/swagger';
-import { debugLog, errorLog, importFile } from '../common';
+import { debugLog, errorLog, importFile, infoLog } from '../common';
 import { MiddlewareName } from '../types';
 import * as https from 'https';
 import { Global } from '../global';
@@ -40,7 +40,7 @@ export namespace WebServer {
 
                https.createServer(credentials, app)
                   .listen(443, () => {
-                     console.log(`(https) ${APP_NAME} listening on port 443`);
+                     infoLog('server', `(https) ${APP_NAME} listening on port 443`);
                   });
             } catch (e) {
                errorLog('ssl', `can not set ssl and init https server`);
@@ -49,7 +49,7 @@ export namespace WebServer {
          }
          // =>run http server
          app.listen(Global.ENV.HTTP_PORT, async () => {
-            console.log(`(http) ${APP_NAME} listening on port ${Global.ENV.HTTP_PORT}`);
+            infoLog('server', `(http) ${APP_NAME} listening on port ${Global.ENV.HTTP_PORT}`);
             // =>init swagger, if allowed
             if (!Global.ENV.SWAGGER_DISABLED) {
                await Swagger.init(app);

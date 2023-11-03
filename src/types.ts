@@ -8,7 +8,7 @@ export type RequestMethodType = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 export type MiddlewareName = 'RequestInit' | 'Authentication' | 'FormDataParser' | 'RoutingResolver';
 
-export type APINamespace = 'server'; //TODO:
+export type APINamespace = 'server' | 'project' | 'user'; //TODO:
 
 export enum HttpStatusCode {
     HTTP_100_CONTINUE = 100,

@@ -14,7 +14,7 @@ export namespace Global {
      */
     export let IDB: ServerDatabase;
 
-    export const IDB_MODELS = ['User', 'Config', 'Session'];
+    export const IDB_MODELS = ['User', 'Config', 'Session', 'Project', 'DataSource'];
 
     export const INIT_MIDDLEWARES: MiddlewareName[] = ['RequestInit', 'Authentication', 'RoutingResolver'];
 
@@ -27,7 +27,15 @@ export namespace Global {
             name: 'server',
             description: 'server relative API endpoints'
         },
-    ];
+        {
+            name: 'project',
+            description: 'project relative API endpoints'
+        },
+        {
+            name: 'user',
+            description: 'user relative API endpoints'
+        },
+    ];//TODO:
 
     export const APIBaseUrl = '/api/';
     export const DATABASE_DRIVER_PACKAGES: { [k in DatabaseType]?: string } = {

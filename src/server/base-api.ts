@@ -4,6 +4,7 @@ import { CoreRequest } from "./request";
 import { clone, errorLog } from "../common";
 import { Config } from "../internal-db/models/Config";
 import { ConfigValueType } from "../internal-db/models/interfaces";
+import { Includeable, Model, Order, WhereOptions } from "sequelize";
 export class BaseAPI {
     request: CoreRequest;
     /*************************************** */
@@ -155,6 +156,53 @@ export class BaseAPI {
         return [JSON.stringify(resp), code, 'application/json'];
     }
     /*************************************** */
+    async paginateResponse<T extends {} = object>(model: any | typeof Model, options?: {
+        where?: WhereOptions<T>,
+        attributes?: (keyof T)[],
+        order?: Order,
+        include?: Includeable | Includeable[],
+        mapCallback?: (row: T) => Promise<T> | T,
+        // filterCallback?: (row: T) => Promise<T> | T
+    }): Promise<HttpResponse> {
+        if (!options) {
+            options = {};
+        }
+        if (!options.where) options.where = {};
+        // =>get params
+        let pageSize = this.paramNumber('page_size', 10);
+        let page = this.paramNumber('page', 1);
+        let queryObject = {
+            where: options.where,
+            order: options.order,
+            include: options.include,
+            offset: (page * pageSize) - pageSize,
+            limit: pageSize,
+        };
+        if (options.attributes) {
+            queryObject['attributes'] = options.attributes;
+        }
+        // =>call query
+        let results = (await model.findAll(queryObject)).map(i => i.toJSON());
+        // =>count documents find
+        const count = await model.count({
+            where: options.where,
+        });
+        // =>map results, if exist
+        if (options.mapCallback) {
+            for (let res of results) {
+                res = await options.mapCallback(res) as any;
+            }
+        }
+        let pagination: APIResponsePagination = {
+            page_size: pageSize,
+            page,
+            page_count: Math.ceil(count / pageSize),
+        };
+
+        return this.response(results, HttpStatusCode.HTTP_200_OK, undefined, { pagination });
+    }
+
+    /*************************************** */
     // async paginateResponse<T = any>(model: Model<T>, options?: {
     //     filters?: FilterQuery<T>,
     //     mapCallback?: (row: T) => Promise<T> | T,
@@ -253,8 +301,9 @@ export class BaseAPI {
     /*************************************** */
     /*************************************** */
 
-    isAdmin() {
+    isAdmin(adminLevel = 1) {
         if (!this.request.user()) return false;
-        return this.request.user().admin_level > 0;
+        if (Number(adminLevel) < 1) adminLevel = 1;
+        return this.request.user().admin_level >= adminLevel;
     }
 }
