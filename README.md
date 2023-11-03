@@ -19,5 +19,5 @@
 5. you must call an API for install and configure DAD:
 
 ```
-
+[GET] http://localhost:8082/api/v1/server/install
 ```

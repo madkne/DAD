@@ -87,12 +87,12 @@ export namespace Swagger {
         // console.log(apis)
         // =>add all paths
         for (const api of apis) {
-            api.path = '/' + api.path;
+            const swaggerAPIPath = '/' + api.version + '/' + api.path;
             // =>find same path
-            let apiPath = swagger.paths[api.path];
+            let apiPath = swagger.paths[swaggerAPIPath];
             if (!apiPath) {
-                swagger.paths[api.path] = {};
-                apiPath = swagger.paths[api.path];
+                swagger.paths[swaggerAPIPath] = {};
+                apiPath = swagger.paths[swaggerAPIPath];
             }
             // =>add by api method
             apiPath[api.method.toLowerCase()] = {

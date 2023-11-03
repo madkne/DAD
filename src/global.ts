@@ -1,6 +1,6 @@
 import { ServerDatabase } from "./internal-db/database";
 import { DefinedAPINamespace, EnvironmentVariables } from "./interfaces";
-import { APINamespace, MiddlewareName } from "./types";
+import { APINamespace, DatabaseType, MiddlewareName } from "./types";
 
 
 
@@ -14,7 +14,7 @@ export namespace Global {
      */
     export let IDB: ServerDatabase;
 
-    export const IDB_MODELS = ['User'];
+    export const IDB_MODELS = ['User', 'Config', 'Session'];
 
     export const INIT_MIDDLEWARES: MiddlewareName[] = ['RequestInit', 'Authentication', 'RoutingResolver'];
 
@@ -30,4 +30,8 @@ export namespace Global {
     ];
 
     export const APIBaseUrl = '/api/';
+    export const DATABASE_DRIVER_PACKAGES: { [k in DatabaseType]?: string } = {
+        'sqlite': "sqlite3@5.1.6",
+        'mysql': "mysql2@2.3.0",
+    }; //TODO:
 }

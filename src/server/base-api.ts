@@ -1,7 +1,9 @@
 import { APIResponse, APIResponsePagination } from "../interfaces";
-import { HttpResponse, HttpStatusCode } from "../types";
+import { DBConfigKey, HttpResponse, HttpStatusCode } from "../types";
 import { CoreRequest } from "./request";
 import { clone, errorLog } from "../common";
+import { Config } from "../internal-db/models/Config";
+import { ConfigValueType } from "../internal-db/models/interfaces";
 export class BaseAPI {
     request: CoreRequest;
     /*************************************** */
@@ -50,6 +52,54 @@ export class BaseAPI {
     /*************************************** */
     error403(data?: string | object) {
         return this.error(HttpStatusCode.HTTP_403_FORBIDDEN, data);
+    }
+    /*************************************** */
+    async updateConfig(key: DBConfigKey, value: any) {
+        let dataType: ConfigValueType = 'string';
+        // =>detect data type
+        if (typeof value === 'number' || typeof value === 'boolean') dataType = 'number';
+        else if (typeof value === 'object' || Array.isArray(value)) dataType = 'json';
+        // =>cast value to string
+        let valueString = String(value);
+        if (typeof value === 'boolean') {
+            valueString = String(Number(value));
+        }
+        else if (dataType === 'json') {
+            valueString = JSON.stringify(value);
+        }
+        // =>find config, if exist
+        const beforeConfig = await Config.findOne({ where: { key } });
+        let updatedConfig;
+        // =>just update
+        if (beforeConfig) {
+            updatedConfig = beforeConfig;
+            await Config.update({
+                value: valueString,
+                data_type: dataType,
+            }, { where: { key } });
+        }
+        // =>insert new config
+        else {
+            updatedConfig = await Config.create({
+                key,
+                value: valueString,
+                data_type: dataType,
+            });
+        }
+
+        return updatedConfig;
+    }
+    /*************************************** */
+    async readConfig<T = string>(key: DBConfigKey, defaultValue?: T): Promise<T> {
+        // =>find config, if exist
+        const configDB = await Config.findOne({ where: { key } });
+        if (!configDB) return defaultValue;
+        const config = configDB.toJSON();
+        // =>cast value by data type
+        if (config.data_type === 'string') return config.value;
+        if (config.data_type === 'number') return Number(config.value) as T;
+        if (config.data_type === 'json') return JSON.parse(config.value) as T;
+        return defaultValue;
     }
     /*************************************** */
     // async errorLog(namespace: WorkflowNamespace, name: string, meta?: object) {

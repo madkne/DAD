@@ -31,7 +31,8 @@ export namespace WebRoutes {
                     coreRequest.response('', HttpStatusCode.HTTP_404_NOT_FOUND);
                     return;
                 }
-                let apiClassInstance = new (classFile.classApi())(coreRequest);
+                const APIClass = classFile[api.method.toLowerCase()];
+                let apiClassInstance = new APIClass(coreRequest);
                 // console.log('req:', api.functionName, apiClassInstance['request'], classFilePath);
                 // =>call api function
                 let resP = await apiClassInstance[api.functionName]();

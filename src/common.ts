@@ -39,6 +39,7 @@ export function loadEnvFile() {
         if (!envVariables.SWAGGER_BASE_URL) envVariables.SWAGGER_BASE_URL = '/api-docs';
         if (!envVariables.HOSTNAME) envVariables.HOSTNAME = 'localhost';
         if (!envVariables.AUTH_HEADER_NAME) envVariables.AUTH_HEADER_NAME = 'Authorization';
+        if (!envVariables.AUTH_TOKEN_LIFETIME) envVariables.AUTH_TOKEN_LIFETIME = 86400;
 
         // =>normalize 
         envVariables.DS_TYPES = (envVariables.DS_TYPES as any).split(',').map(i => i.trim()).filter(i => i.length > 0) as any;
@@ -47,6 +48,9 @@ export function loadEnvFile() {
         }
         if (typeof envVariables.HTTP_PORT === 'string') {
             envVariables.HTTP_PORT = Number(envVariables.HTTP_PORT);
+        }
+        if (typeof envVariables.AUTH_TOKEN_LIFETIME === 'string') {
+            envVariables.AUTH_TOKEN_LIFETIME = Number(envVariables.AUTH_TOKEN_LIFETIME);
         }
 
 
@@ -208,7 +212,7 @@ export async function sleep(timeout = 1000) {
 //     }
 // }
 /***************************************** */
-export function baseUrl(){
+export function baseUrl() {
 
     return `${Global.ENV?.SSL ? 'https' : 'http'}://${Global.ENV?.HOSTNAME}:${Global.ENV?.HTTP_PORT}`;
 }
