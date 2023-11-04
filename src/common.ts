@@ -3,7 +3,8 @@ import * as path from "path";
 import * as os from "os";
 import { Request } from "express";
 import { Global } from "./global";
-import { EnvironmentVariables, EnvironmentVariablesKeys } from "./interfaces";
+import { EnvironmentVariables } from "./interfaces";
+import { EnvironmentVariablesKeys } from "./data";
 /***************************************** */
 export function loadEnvFile() {
     try {
@@ -11,7 +12,7 @@ export function loadEnvFile() {
         let envVariables: EnvironmentVariables = JSON.parse(JSON.stringify(process.env));
         // =>remove unused properties
         for (const key in envVariables) {
-            if (!EnvironmentVariablesKeys.includes(key)) {
+            if (!EnvironmentVariablesKeys.includes(key as any)) {
                 delete envVariables[key];
             }
         }

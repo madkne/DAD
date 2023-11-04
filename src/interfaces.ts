@@ -1,16 +1,6 @@
 import { APINamespace, DatabaseType, HttpStatusCode, InternalDatabaseType, MiddlewareName, RequestMethodType, SwaggerDataType, SwaggerDataTypeFormat } from "./types";
 
-export const EnvironmentVariablesKeys = [
-    'ROOT_USERNAME', 'ROOT_PASSWORD',
-    'DB_CONNECTION', 'DB_PATH', 'DB_USERNAME', 'DB_PASSWORD', 'DB_HOST', 'DB_PORT', 'DB_NAME',
-    'DS_TYPES',
-    'DEBUG_MODE',
-    'STORAGE_PATH', 'UPLOADS_PATH',
-    'HTTP_PORT', 'HOSTNAME',
-    'SWAGGER_BASE_URL', 'SWAGGER_DISABLED',
-    'AUTH_HEADER_NAME', 'AUTH_TOKEN_LIFETIME',
-    'SSL', 'SSL_PRIVATE_KEY_PATH', 'SSL_CERTIFICATE_PATH'
-];
+
 
 export interface EnvironmentVariables {
     /**
@@ -200,6 +190,7 @@ export interface SwaggerApiParameter {
                 default?: any;
                 $ref?: string;
                 required?: boolean;
+                enum?: any[];
             };
         };
         defaultProperties?: any;

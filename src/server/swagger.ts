@@ -8,6 +8,7 @@ import * as fs from 'fs';
 import { Global } from "../global";
 import { APINamespace } from "../types";
 import { APP_NAME, APP_SHORTENED, VERSION } from "../version";
+import { APINamespaces } from "../data";
 
 
 export namespace Swagger {
@@ -145,7 +146,7 @@ export namespace Swagger {
     export async function init(app: Express) {
         try {
             // =>fill tags
-            tags = Global.APINamespaces;
+            tags = APINamespaces;
             // =>init swagger
             const swaggerUi = require('swagger-ui-express');
             const swaggerDocument = await generate();

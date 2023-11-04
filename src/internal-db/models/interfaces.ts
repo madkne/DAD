@@ -1,4 +1,4 @@
-import { DBConfigKey, DatabaseType } from "../../types";
+import { DBConfigKey, DatabaseType, ReportMode } from "../../types";
 
 export interface _BaseModel {
     id?: number;
@@ -55,6 +55,65 @@ export interface DataSourceModel extends _BaseModel {
     project_id: number;
     name: string;
     source_type: DatabaseType;
-    settings?: {};
+    settings?: {
+        sqlite_path?: string;
+        is_external_sqlite?: boolean;
+    };
+}
 
+export interface ReportModel extends _BaseModel {
+    project_id: number;
+    source_id: number;
+    name: string;
+    /**
+     * @default table
+     */
+    mode: ReportMode;
+    /**
+     * @default 60000
+     */
+    refresh_time?: number;
+    settings?: {
+    };
+    data?: {
+        query?: string;
+    };
+    display?: {
+        title?: string;
+    }
+}
+
+export interface DashboardModel extends _BaseModel {
+    project_id: number;
+    name: string;
+    title?: string;
+    auto_refresh?: 'off' | '1min' | '5min' | '30min' | '60min';
+    /**
+     * get password from user to show dashboard
+     */
+    password?: string;
+    description?: string;
+    settings?: {
+    };
+}
+
+export interface DashboardEntryModel {
+    id?: number;
+    dashboard_id: number;
+    entry_type: 'report' | 'text';
+    report_id?: number;
+    text?: string;
+    width: '2-12' | '3-12' | '4-12' | '6-12' | '8-12' | '12-12';
+    /**
+     * if not set, set as auto
+     * @example 200px
+     */
+    height?: string;
+    settings?: {
+        click_behavior?: {
+            behavior: 'link_url';
+            url?: string;
+        }
+    }
+    created_at?: number;
 }

@@ -7,6 +7,7 @@ import { CoreRequest } from './request';
 import { HttpStatusCode } from '../types';
 import { Global } from '../global';
 import { APP_NAME, APP_TEXT_ART, VERSION } from '../version';
+import { APINamespaces } from '../data';
 
 
 export namespace WebRoutes {
@@ -71,7 +72,7 @@ export namespace WebRoutes {
 
     export async function getRoutes(): Promise<ApiRoute[]> {
         let apis: ApiRoute[] = [];
-        for (const namespace of Global.APINamespaces) {
+        for (const namespace of APINamespaces) {
             // =>import namespace routes
             let routesFilePath = path.join(path.dirname(__filename), '..', 'routes', namespace.name);
 
