@@ -25,6 +25,10 @@ export function loadEnvFile() {
         if (!envVariables.UPLOADS_PATH) {
             envVariables.UPLOADS_PATH = path.join(__dirname, 'storage', 'uploads');
         }
+        if (!envVariables.PUBLIC_PATH) {
+            if (fs.existsSync(path.join(__dirname, '..', 'public'))) envVariables.PUBLIC_PATH = path.join(__dirname, '..', 'public');
+            else envVariables.PUBLIC_PATH = path.join(__dirname, 'public');
+        }
         if (!envVariables.HTTP_PORT)
             envVariables.HTTP_PORT = 8082;
 
@@ -41,7 +45,7 @@ export function loadEnvFile() {
         if (!envVariables.HOSTNAME) envVariables.HOSTNAME = 'localhost';
         if (!envVariables.AUTH_HEADER_NAME) envVariables.AUTH_HEADER_NAME = 'Authorization';
         if (!envVariables.AUTH_TOKEN_LIFETIME) envVariables.AUTH_TOKEN_LIFETIME = 86400;
-
+        if (!envVariables.DASHBOARD_BASE_URL) envVariables.DASHBOARD_BASE_URL = '/dashboards';
         // =>normalize 
         envVariables.DS_TYPES = (envVariables.DS_TYPES as any).split(',').map(i => i.trim()).filter(i => i.length > 0) as any;
         if (typeof envVariables.DEBUG_MODE === 'string') {

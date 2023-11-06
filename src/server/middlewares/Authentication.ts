@@ -20,7 +20,7 @@ export class Authentication extends Middleware {
       // =>check if root url
       if (req.path == '/') return true;
       // =>check for exclude urls
-      let excludeUrls = [Global.ENV.SWAGGER_BASE_URL, WebRoutes.assetsBaseUrl];
+      let excludeUrls = [Global.ENV.SWAGGER_BASE_URL, Global.AssetsBaseUrl, Global.ENV.DASHBOARD_BASE_URL];
       for (const url of excludeUrls) {
          if (req.path.startsWith(url)) {
             return true;

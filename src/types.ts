@@ -56,4 +56,8 @@ export type DBConfigKey = 'server.is_installed'; //TODO:
 
 export type ReportMode = 'bar_chart' | 'line_chart' | 'area_chart' | 'pie_chart' | 'table'; //TODO:
 
-export type DashboardTheme = 'simple';
+export type DashboardTheme = 'simple'; //TODO:
+
+export type DashboardEntryType = 'report' | 'text';
+
+export type DashboardEntryWidth = '2-12' | '3-12' | '4-12' | '6-12' | '8-12' | '12-12';

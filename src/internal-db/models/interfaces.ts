@@ -1,4 +1,4 @@
-import { DBConfigKey, DashboardTheme, DatabaseType, ReportMode } from "../../types";
+import { DBConfigKey, DashboardEntryType, DashboardEntryWidth, DashboardTheme, DatabaseType, ReportMode } from "../../types";
 
 export interface _BaseModel {
     id?: number;
@@ -102,10 +102,10 @@ export interface DashboardModel extends _BaseModel {
 export interface DashboardEntryModel {
     id?: number;
     dashboard_id: number;
-    entry_type: 'report' | 'text';
+    entry_type: DashboardEntryType;
     report_id?: number;
     text?: string;
-    width: '2-12' | '3-12' | '4-12' | '6-12' | '8-12' | '12-12';
+    width: DashboardEntryWidth;
     /**
      * if not set, set as auto
      * @example 200px

@@ -8,16 +8,17 @@ import { HttpStatusCode } from '../types';
 import { Global } from '../global';
 import { APP_NAME, APP_TEXT_ART, VERSION } from '../version';
 import { APINamespaces } from '../data';
+import { TemplateEngine } from './template-engine';
 
 
 export namespace WebRoutes {
-    export let assetsBaseUrl = '/assets';
+
 
     export async function routes(app: Express) {
         // =>get all apis
         let apis = await getRoutes();
         // console.log(apis)
-        // =>add admin apis
+        // =>add apis
         for (const api of apis) {
             app[api.method.toLowerCase()](api.absPath, async (req, res) => {
                 // =>init core request class
@@ -49,7 +50,6 @@ export namespace WebRoutes {
             });
         }
 
-        // app.use(assetsBaseUrl, expressStatic(path.join(__dirname, '..', 'public', 'assets')));
         app.get('/', (req, res) => {
             let html = `<html>
             <body>
@@ -66,8 +66,9 @@ export namespace WebRoutes {
             res.write(html);
             res.end();
         });
-
-
+        // =>add template engine
+        await TemplateEngine.setup(app);
+        await TemplateEngine.serveDashboards(app);
     }
 
     export async function getRoutes(): Promise<ApiRoute[]> {

@@ -22,7 +22,7 @@ export namespace Global {
 
     export const CoreRequestKey = '_.dad.core_request';
 
-
+    export const AssetsBaseUrl = '/assets';
 
     export const APIBaseUrl = '/api/';
     export const DATABASE_DRIVER_PACKAGES: { [k in DatabaseType]?: string } = {

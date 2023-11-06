@@ -1,16 +1,17 @@
 import { DefinedAPINamespace, EnvironmentVariables } from "./interfaces";
-import { DashboardTheme, DatabaseType, ReportMode } from "./types";
+import { DashboardEntryType, DashboardEntryWidth, DashboardTheme, DatabaseType, ReportMode } from "./types";
 
 export const EnvironmentVariablesKeys: (keyof EnvironmentVariables)[] = [
     'ROOT_USERNAME', 'ROOT_PASSWORD',
     'DB_CONNECTION', 'DB_PATH', 'DB_USERNAME', 'DB_PASSWORD', 'DB_HOST', 'DB_PORT', 'DB_NAME',
     'DS_TYPES',
     'DEBUG_MODE',
-    'STORAGE_PATH', 'UPLOADS_PATH',
+    'STORAGE_PATH', 'UPLOADS_PATH', 'PUBLIC_PATH',
     'HTTP_PORT', 'HOSTNAME',
     'SWAGGER_BASE_URL', 'SWAGGER_DISABLED',
     'AUTH_HEADER_NAME', 'AUTH_TOKEN_LIFETIME',
-    'SSL', 'SSL_PRIVATE_KEY_PATH', 'SSL_CERTIFICATE_PATH'
+    'SSL', 'SSL_PRIVATE_KEY_PATH', 'SSL_CERTIFICATE_PATH',
+    'DASHBOARD_BASE_URL'
 ];
 
 export const DatabaseTypes: DatabaseType[] = ['sqlite', 'mysql', 'mongo'];
@@ -45,3 +46,7 @@ export const APINamespaces: DefinedAPINamespace[] = [
 export const ReportModes: ReportMode[] = ['area_chart', 'bar_chart', 'line_chart', 'pie_chart', 'table']; //TODO:
 
 export const DashboardThemes: DashboardTheme[] = ['simple']; //TODO:
+
+export const DashboardEntryTypes: DashboardEntryType[] = ['report', 'text'];
+
+export const DashboardEntryWidths: DashboardEntryWidth[] = ['2-12', '3-12', '4-12', '6-12', '8-12', '12-12'];

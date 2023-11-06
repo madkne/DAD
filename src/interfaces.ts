@@ -48,6 +48,10 @@ export interface EnvironmentVariables {
      */
     UPLOADS_PATH?: string;
     /**
+     * @default ./public
+     */
+    PUBLIC_PATH?: string;
+    /**
      * @default 8082
      */
     HTTP_PORT?: number;
@@ -76,6 +80,11 @@ export interface EnvironmentVariables {
     SSL?: boolean;
     SSL_PRIVATE_KEY_PATH?: string;
     SSL_CERTIFICATE_PATH?: string;
+
+    /**
+     * @default /dashboards
+     */
+    DASHBOARD_BASE_URL?: string;
 }
 
 

@@ -1,4 +1,4 @@
-import { DashboardThemes, ReportModes } from "../data";
+import { DashboardEntryTypes, DashboardEntryWidths, DashboardThemes, ReportModes } from "../data";
 import { ApiRoute } from "../interfaces";
 
 export const apis: ApiRoute[] = [
@@ -48,6 +48,61 @@ export const apis: ApiRoute[] = [
                 description: 'success created dashboard',
                 schema: {
                     "$ref": "#/definitions/DashboardModel"
+                },
+            },
+        }
+
+    },
+
+    {
+        method: 'POST',
+        path: 'entry/add',
+        functionName: 'addEntry',
+        des: 'add an entry to exist dashboard',
+        parameters: [
+            {
+                name: 'request',
+                in: 'body',
+                required: true,
+                type: 'object',
+                schema: {
+                    type: "object",
+                    properties: {
+                        dashboard_name: {
+                            type: "string",
+                            default: 'dashboard1',
+                            required: true,
+                        },
+                        entry_type: {
+                            type: "string",
+                            default: 'report',
+                            enum: DashboardEntryTypes,
+                        },
+                        report_name: {
+                            type: "string",
+                        },
+                        text: {
+                            type: "string",
+                        },
+                        width: {
+                            type: "string",
+                            default: '12-12',
+                            enum: DashboardEntryWidths,
+                        },
+                        height: {
+                            type: 'string',
+                            default: 'auto',
+                        }
+                    },
+                }
+            },
+        ],
+        usedDefinitions: ['DashboardEntryModel'],
+        responses: {
+            '200': {
+                description: 'success created dashboard entry',
+                schema: {
+                    "$ref": "#/definitions/DashboardEntryModel"
                 },
             },
         }
