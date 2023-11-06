@@ -1,5 +1,5 @@
 import { DefinedAPINamespace, EnvironmentVariables } from "./interfaces";
-import { DatabaseType, ReportMode } from "./types";
+import { DashboardTheme, DatabaseType, ReportMode } from "./types";
 
 export const EnvironmentVariablesKeys: (keyof EnvironmentVariables)[] = [
     'ROOT_USERNAME', 'ROOT_PASSWORD',
@@ -36,6 +36,12 @@ export const APINamespaces: DefinedAPINamespace[] = [
         name: 'report',
         description: 'project reports relative API endpoints'
     },
+    {
+        name: 'dashboard',
+        description: 'project dashboards relative API endpoints'
+    },
 ];//TODO:
 
 export const ReportModes: ReportMode[] = ['area_chart', 'bar_chart', 'line_chart', 'pie_chart', 'table']; //TODO:
+
+export const DashboardThemes: DashboardTheme[] = ['simple']; //TODO:

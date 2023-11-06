@@ -1,4 +1,4 @@
-import { DBConfigKey, DatabaseType, ReportMode } from "../../types";
+import { DBConfigKey, DashboardTheme, DatabaseType, ReportMode } from "../../types";
 
 export interface _BaseModel {
     id?: number;
@@ -83,11 +83,13 @@ export interface ReportModel extends _BaseModel {
     }
 }
 
+
 export interface DashboardModel extends _BaseModel {
     project_id: number;
     name: string;
     title?: string;
     auto_refresh?: 'off' | '1min' | '5min' | '30min' | '60min';
+    theme?: DashboardTheme;
     /**
      * get password from user to show dashboard
      */
@@ -116,4 +118,5 @@ export interface DashboardEntryModel {
         }
     }
     created_at?: number;
+    updated_at?: number;
 }

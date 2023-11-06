@@ -1,6 +1,6 @@
 import { ServerDatabase } from "./internal-db/database";
-import { DefinedAPINamespace, EnvironmentVariables } from "./interfaces";
-import { APINamespace, DatabaseType, MiddlewareName } from "./types";
+import { EnvironmentVariables } from "./interfaces";
+import { DatabaseType, MiddlewareName } from "./types";
 
 
 
@@ -14,7 +14,7 @@ export namespace Global {
      */
     export let IDB: ServerDatabase;
 
-    export const IDB_MODELS = ['User', 'Config', 'Session', 'Project', 'DataSource', 'Report'];
+    export const IDB_MODELS = ['User', 'Config', 'Session', 'Project', 'DataSource', 'Report', 'Dashboard', 'DashboardEntry'];
 
     export const INIT_MIDDLEWARES: MiddlewareName[] = ['RequestInit', 'Authentication', 'RoutingResolver'];
 

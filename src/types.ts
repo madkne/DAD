@@ -8,7 +8,7 @@ export type RequestMethodType = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 export type MiddlewareName = 'RequestInit' | 'Authentication' | 'FormDataParser' | 'RoutingResolver';
 
-export type APINamespace = 'server' | 'project' | 'user' | 'source' | 'report'; //TODO:
+export type APINamespace = 'server' | 'project' | 'user' | 'source' | 'report' | 'dashboard'; //TODO:
 
 export enum HttpStatusCode {
     HTTP_100_CONTINUE = 100,
@@ -55,3 +55,5 @@ export type HttpResponse = [string, HttpStatusCode, string];
 export type DBConfigKey = 'server.is_installed'; //TODO:
 
 export type ReportMode = 'bar_chart' | 'line_chart' | 'area_chart' | 'pie_chart' | 'table'; //TODO:
+
+export type DashboardTheme = 'simple';
