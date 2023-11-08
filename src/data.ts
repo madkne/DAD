@@ -1,3 +1,5 @@
+import { BaseSourceDriver } from "./datasource/drivers/base";
+import { sqlite } from "./datasource/drivers/sqlite";
 import { DefinedAPINamespace, EnvironmentVariables } from "./interfaces";
 import { DashboardEntryType, DashboardEntryWidth, DashboardTheme, DatabaseType, ReportMode } from "./types";
 
@@ -50,3 +52,7 @@ export const DashboardThemes: DashboardTheme[] = ['simple']; //TODO:
 export const DashboardEntryTypes: DashboardEntryType[] = ['report', 'text'];
 
 export const DashboardEntryWidths: DashboardEntryWidth[] = ['2-12', '3-12', '4-12', '6-12', '8-12', '12-12'];
+
+export const DatabaseDrivers: { [k in DatabaseType]?: typeof BaseSourceDriver } = {
+    sqlite: sqlite,
+}; //TODO:

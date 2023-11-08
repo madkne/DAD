@@ -51,14 +51,16 @@ export interface ProjectModel extends _BaseModel {
     settings?: {};
 }
 
+export interface DataSourceSettings {
+    sqlite_path?: string;
+    is_external_sqlite?: boolean;
+}
+
 export interface DataSourceModel extends _BaseModel {
     project_id: number;
     name: string;
     source_type: DatabaseType;
-    settings?: {
-        sqlite_path?: string;
-        is_external_sqlite?: boolean;
-    };
+    settings?: DataSourceSettings;
 }
 
 export interface ReportModel extends _BaseModel {

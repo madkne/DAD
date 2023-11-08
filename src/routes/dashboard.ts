@@ -109,5 +109,33 @@ export const apis: ApiRoute[] = [
 
     },
 
+    {
+        method: 'GET',
+        path: 'data/fetch',
+        functionName: 'fetchData',
+        des: 'fetch dashboard reports data',
+        parameters: [
+            {
+                in: 'query',
+                name: 'name',
+                type: 'string',
+                description: "dashboard name",
+            },
+            {
+                in: 'query',
+                name: 'is_force',
+                type: 'boolean',
+                default: false,
+                description: "force to fetch data from data sources not cache",
+            },
+        ],
+        responses: {
+            '200': {
+                description: 'success fetch data',
+            },
+        }
+
+    },
+
 
 ];

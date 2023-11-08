@@ -2,6 +2,7 @@ import { Express, static as expressStatic } from 'express';
 import * as path from 'path';
 import { Global } from '../global';
 import { Dashboard } from '../internal-db/models/Dashboard';
+import { DashboardEntry } from '../internal-db/models/DashboardEntry';
 
 export namespace TemplateEngine {
 
@@ -28,9 +29,11 @@ export namespace TemplateEngine {
             const dashboardDB = await Dashboard.findOne({ where: { name: dashboardName } });
             if (!dashboardDB) return res.status(404).json({ error: 'not found such dashboard' });
             const dashboard = dashboardDB.toJSON();
+            // =>fetch dashboard entries
+            let entries = (await DashboardEntry.findAll({ where: { dashboard_id: dashboard.id } })).map(i => i.toJSON());
             // =>choose theme
             if (dashboard.theme === 'simple') {
-                return res.render('dashboards/simple.twig', { dashboard });
+                return res.render('dashboards/simple.twig', { dashboard, entries });
             }
             else {
                 return res.status(404).json({ error: 'bad dashboard theme' });
