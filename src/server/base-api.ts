@@ -3,8 +3,9 @@ import { DBConfigKey, HttpResponse, HttpStatusCode } from "../types";
 import { CoreRequest } from "./request";
 import { clone, errorLog } from "../common";
 import { Config } from "../internal-db/models/Config";
-import { ConfigValueType } from "../internal-db/models/interfaces";
+import { ConfigValueType, DashboardModel } from "../internal-db/models/interfaces";
 import { Includeable, Model, Order, WhereOptions } from "sequelize";
+import { Dashboard } from "../internal-db/models/Dashboard";
 export class BaseAPI {
     request: CoreRequest;
     /*************************************** */
@@ -293,6 +294,19 @@ export class BaseAPI {
         }
 
         return params;
+    }
+    /*************************************** */
+    async findDashboardByName(name: string): Promise<DashboardModel> {
+        const dashboard = await Dashboard.findOne({ where: { name } });
+        if (!dashboard) return this.error404('not found such dashboard') as any;
+        return dashboard.toJSON();
+    }
+    /*************************************** */
+    isErrorResponse(res: any) {
+        if (!Array.isArray(res) || res.length < 2) return false;
+        if (isNaN(res[1]) || Number(res[1]) < 400) return false;
+
+        return true;
     }
     /*************************************** */
     /*************************************** */

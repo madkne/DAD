@@ -1,5 +1,30 @@
 import { DashboardEntryTypes, DashboardEntryWidths, DashboardThemes, ReportModes } from "../data";
+import { SwaggerApiParameter } from "../interfaces";
 import { ApiRoute } from "../interfaces";
+
+const fetchAPIParameters: SwaggerApiParameter[] = [
+    {
+        in: 'query',
+        name: 'name',
+        type: 'string',
+        description: "dashboard name",
+    },
+    {
+        in: 'query',
+        name: 'is_force',
+        type: 'boolean',
+        default: false,
+        description: "force to fetch data from data sources not cache",
+    },
+    {
+        in: 'query',
+        name: 'password',
+        type: 'string',
+        description: "dashboard password, if set",
+        default: false,
+    },
+];
+
 
 export const apis: ApiRoute[] = [
     {
@@ -111,24 +136,11 @@ export const apis: ApiRoute[] = [
 
     {
         method: 'GET',
-        path: 'data/fetch',
+        path: 'data/fetch/query-format',
         functionName: 'fetchData',
-        des: 'fetch dashboard reports data',
-        parameters: [
-            {
-                in: 'query',
-                name: 'name',
-                type: 'string',
-                description: "dashboard name",
-            },
-            {
-                in: 'query',
-                name: 'is_force',
-                type: 'boolean',
-                default: false,
-                description: "force to fetch data from data sources not cache",
-            },
-        ],
+        des: 'fetch dashboard reports data as normal',
+        noAuth: true,
+        parameters: fetchAPIParameters,
         responses: {
             '200': {
                 description: 'success fetch data',
@@ -136,6 +148,21 @@ export const apis: ApiRoute[] = [
         }
 
     },
+    {
+        method: 'GET',
+        path: 'data/fetch/report-format',
+        functionName: 'fetchDataAsReportFormat',
+        des: 'fetch dashboard reports data as report format',
+        noAuth: true,
+        parameters: fetchAPIParameters,
+        responses: {
+            '200': {
+                description: 'success fetch data',
+            },
+        }
+
+    },
+
 
 
 ];

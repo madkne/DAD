@@ -1,36 +1,86 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="/assets/css/milligram.min.css"/>
-		<link rel="icon" type="image/png" href="/assets/img/logo.png">
-		<title>
-			{{dashboard.title}}
-		</title>
-		<style>
-			html,
-			body {
-				padding: 0;
-				margin: 0;
-				height: 100%;
-			}
-			body {
-				padding: 10px;
-			}
-		</style>
-	</head>
-	<body>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/assets/css/milligram.min.css" />
+	<link rel="icon" type="image/png" href="/assets/img/logo.png">
+	<title>
+		{{dashboard.title}}
+	</title>
+	<style>
+		html,
+		body {
+			padding: 0;
+			margin: 0;
+			height: 100%;
+		}
+
+		body {
+			padding: 10px;
+		}
+
+		.report {
+			margin: 10px 2%;
+			box-shadow: 1px 3px 0 rgba(0, 0, 0, 0.1);
+			border: 1px solid #eeeeee;
+			border-radius: 5px;
+			padding: 8px;
+		}
+
+		.report h3 {
+			margin-bottom: 4px;
+		}
+
+		.report hr {
+			margin-top: 3px;
+		}
+
+		.report .content error {
+			color: red;
+			text-align: center;
+			padding: 10px 5px;
+			display: block;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="app">
 		<h1>{{dashboard.title}}</h1>
 		{% if dashboard.description %}
-			<p>{{dashboard.description}}</p>
+		<p>{{dashboard.description}}</p>
 		{% endif %}
 		<hr>
 		{% for entry in entries %}
-			<div class="report">
-				<h1></h1>
-			</div>
+		{% if entry.entry_type == 'report' %}
+		<div class="report">
+			<h3>
+				{% if entry.report.display.title is defined %}
+				{{entry.report.display.title}}
+				{% else %}
+				{{entry.report.name}}
+				{% endif %}
+			</h3>
+			<hr>
+			<div class="content" id="report_{{entry.report.id}}"></div>
+		</div>
+		{% endif %}
 		{% endfor %}
-	</body>
+	</div>
+	<script src="/assets/js/vue.min.js"></script>
+	<script src="/assets/js/axios.min.js"></script>
+	<script src="/assets/chart.js/chart.umd.js" async></script>
+	<script>
+		const GlobalVariables = {
+			baseApi: "{{ base_api }}",
+			name: "{{ dashboard.name }}",
+			entries: JSON.parse(`{{entries |json_encode|e('js')}}`),
+		};
+	</script>
+	<script src="/assets/js/simple-dashboard.js"></script>
+
+</body>
+
 </html>

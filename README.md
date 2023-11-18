@@ -21,3 +21,10 @@
 ```
 [GET] http://localhost:8082/api/v1/server/install
 ```
+
+
+## TODO
+
+- [ ] complete simple dashboard
+- [ ] cache report queries
+- [ ] using ORM language (with loops and variables)

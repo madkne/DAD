@@ -54,7 +54,7 @@ export type HttpResponse = [string, HttpStatusCode, string];
 
 export type DBConfigKey = 'server.is_installed'; //TODO:
 
-export type ReportMode = 'bar_chart' | 'line_chart' | 'area_chart' | 'pie_chart' | 'table'; //TODO:
+export type ReportMode = 'bar_chart' | 'line_chart' | 'area_chart' | 'pie_chart' | 'table'; //TODO: add multi charts
 
 export type DashboardTheme = 'simple'; //TODO:
 

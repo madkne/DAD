@@ -79,9 +79,18 @@ export interface ReportModel extends _BaseModel {
     };
     data?: {
         query?: string;
+        /**
+         * the field of query result that must use as label like name field
+         */
+        label_field?: string;
+        /**
+         * the field of query result that must use as data number like count field
+         */
+        data_field?: string
     };
     display?: {
         title?: string;
+        description?: string;
     }
 }
 

@@ -6,7 +6,7 @@ export class DashboardEntry extends Model<DashboardEntryModel> { }
 
 
 export function load() {
-    return DashboardEntry.init({
+    const entry = DashboardEntry.init({
         // Model attributes are defined here
         id: {
             type: DataTypes.BIGINT,
@@ -31,4 +31,5 @@ export function load() {
         createdAt: 'created_at',
         updatedAt: 'updated_at',
     });
+    return entry;
 }
