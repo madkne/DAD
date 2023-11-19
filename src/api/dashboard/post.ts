@@ -48,7 +48,7 @@ export class post extends BaseAPI {
         // =>get params
         const dashboardName = this.param('dashboard_name');
         const entryType = this.param<DashboardEntryType>('entry_type', 'report');
-        const width = this.param<DashboardEntryWidth>('width', '12-12');
+        const width = this.param<DashboardEntryWidth>('width', '10-10');
         let reportName = this.param('report_name');
         let text = this.param('text');
         let height = this.param('height', 'auto');

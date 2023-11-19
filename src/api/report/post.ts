@@ -15,6 +15,7 @@ export class post extends BaseAPI {
         const name = this.param('name');
         const mode = this.param<ReportMode>('mode');
         const query = this.param('query');
+        const order = this.paramNumber('order');
         try {
             // =>find project by name
             const project = await Project.findOne({ where: { name: projectName } });
@@ -38,7 +39,8 @@ export class post extends BaseAPI {
                 data: {
                     query,
                 },
-                settings: {}
+                settings: {},
+                order,
             });
             return this.response(newReport);
         } catch (e) {

@@ -43,6 +43,10 @@ export const APINamespaces: DefinedAPINamespace[] = [
         name: 'dashboard',
         description: 'project dashboards relative API endpoints'
     },
+    {
+        name: 'pipe',
+        description: 'project report pipes relative API endpoints'
+    },
 ];//TODO:
 
 export const ReportModes: ReportMode[] = ['area_chart', 'bar_chart', 'line_chart', 'pie_chart', 'table']; //TODO:
@@ -51,7 +55,7 @@ export const DashboardThemes: DashboardTheme[] = ['simple']; //TODO:
 
 export const DashboardEntryTypes: DashboardEntryType[] = ['report', 'text'];
 
-export const DashboardEntryWidths: DashboardEntryWidth[] = ['2-12', '3-12', '4-12', '6-12', '8-12', '12-12'];
+export const DashboardEntryWidths: DashboardEntryWidth[] = ['2-10', '4-10', '6-10', '8-10', '10-10'];
 
 export const DatabaseDrivers: { [k in DatabaseType]?: typeof BaseSourceDriver } = {
     sqlite: sqlite,

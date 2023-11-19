@@ -37,6 +37,10 @@ export const apis: ApiRoute[] = [
                             type: "string",
                             default: 'SELECT * FROM table1'
                         },
+                        order: {
+                            type: 'number',
+                            default: 1
+                        }
                     },
                 }
             },
@@ -53,6 +57,7 @@ export const apis: ApiRoute[] = [
         }
 
     },
+
 
 
 ];

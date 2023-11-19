@@ -14,7 +14,7 @@ export namespace Global {
      */
     export let IDB: ServerDatabase;
 
-    export const IDB_MODELS = ['User', 'Config', 'Session', 'Project', 'DataSource', 'Report', 'Dashboard', 'DashboardEntry'];
+    export const IDB_MODELS = ['User', 'Config', 'Session', 'Project', 'DataSource', 'Report', 'Dashboard', 'DashboardEntry', 'ReportPipeEntry', 'ProjectPipe'];
 
     export const INIT_MIDDLEWARES: MiddlewareName[] = ['RequestInit', 'Authentication', 'RoutingResolver'];
 

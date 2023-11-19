@@ -1,11 +1,14 @@
-import { APIResponse, APIResponsePagination } from "../interfaces";
+import { APIResponse, APIResponsePagination, FormDataFileRequest } from "../interfaces";
 import { DBConfigKey, HttpResponse, HttpStatusCode } from "../types";
 import { CoreRequest } from "./request";
 import { clone, errorLog } from "../common";
 import { Config } from "../internal-db/models/Config";
-import { ConfigValueType, DashboardModel } from "../internal-db/models/interfaces";
+import { ConfigValueType, DashboardModel, ProjectModel, ProjectPipeModel, ReportModel } from "../internal-db/models/interfaces";
 import { Includeable, Model, Order, WhereOptions } from "sequelize";
 import { Dashboard } from "../internal-db/models/Dashboard";
+import { Project } from "../internal-db/models/Project";
+import { Report } from "../internal-db/models/Report";
+import { ProjectPipe } from "../internal-db/models/ProjectPipe";
 export class BaseAPI {
     request: CoreRequest;
     /*************************************** */
@@ -276,6 +279,10 @@ export class BaseAPI {
         return value;
     }
     /*************************************** */
+    paramFile(name: string) {
+        return this.formDataParam<FormDataFileRequest>(name, undefined, true);
+    }
+    /*************************************** */
     allFormDataParams(type: 'files' | 'both' | 'non_files' = 'non_files') {
         let params = {};
         if (type === 'non_files' || type === 'both') {
@@ -301,6 +308,27 @@ export class BaseAPI {
         if (!dashboard) return this.error404('not found such dashboard') as any;
         return dashboard.toJSON();
     }
+    /*************************************** */
+    async findProjectByName(name: string): Promise<ProjectModel> {
+        const project = await Project.findOne({ where: { name } });
+        if (!project) return this.error404('not found such project') as any;
+        return project.toJSON();
+    }
+    /*************************************** */
+    async findReportByName(name: string): Promise<ReportModel> {
+        const report = await Report.findOne({ where: { name } });
+        if (!report) return this.error404('not found such report') as any;
+        return report.toJSON();
+    }
+    /*************************************** */
+    async findPipeByName(name: string, project_id?: number): Promise<ProjectPipeModel> {
+        const pipe = await ProjectPipe.findOne({ where: { name } });
+        if (!pipe) return this.error404('not found such project pipe') as any;
+        const pipeJson = pipe.toJSON();
+        if (project_id && pipeJson.project_id != project_id) return this.error404('not found such pipe in this project') as any;
+        return pipeJson;
+    }
+
     /*************************************** */
     isErrorResponse(res: any) {
         if (!Array.isArray(res) || res.length < 2) return false;

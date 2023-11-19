@@ -8,7 +8,7 @@ export type RequestMethodType = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 export type MiddlewareName = 'RequestInit' | 'Authentication' | 'FormDataParser' | 'RoutingResolver';
 
-export type APINamespace = 'server' | 'project' | 'user' | 'source' | 'report' | 'dashboard'; //TODO:
+export type APINamespace = 'server' | 'project' | 'user' | 'source' | 'report' | 'dashboard' | 'pipe'; //TODO:
 
 export enum HttpStatusCode {
     HTTP_100_CONTINUE = 100,
@@ -60,4 +60,4 @@ export type DashboardTheme = 'simple'; //TODO:
 
 export type DashboardEntryType = 'report' | 'text';
 
-export type DashboardEntryWidth = '2-12' | '3-12' | '4-12' | '6-12' | '8-12' | '12-12';
+export type DashboardEntryWidth = '2-10' | '4-10' | '6-10' | '8-10' | '10-10';

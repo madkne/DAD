@@ -88,6 +88,13 @@ export interface EnvironmentVariables {
 }
 
 
+export interface FormDataFileRequest {
+    filename: string;
+    encoding?: string;
+    mimeType?: string;
+    tmp_path: string;
+}
+
 export interface ApiRoute {
     method: RequestMethodType;
     path: string;

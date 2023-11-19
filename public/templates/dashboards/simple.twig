@@ -22,7 +22,7 @@
 		}
 
 		.report {
-			margin: 10px 2%;
+			margin: 10px 5px;
 			box-shadow: 1px 3px 0 rgba(0, 0, 0, 0.1);
 			border: 1px solid #eeeeee;
 			border-radius: 5px;
@@ -43,6 +43,19 @@
 			padding: 10px 5px;
 			display: block;
 		}
+
+		.entries {
+			display: flex;
+			flex-wrap: wrap;
+		}
+
+		.entries .w-10-10 {
+			width: calc(100% - 10px);
+		}
+
+		.entries .w-6-10 {
+			width: calc(50% - 10px);
+		}
 	</style>
 </head>
 
@@ -53,21 +66,23 @@
 		<p>{{dashboard.description}}</p>
 		{% endif %}
 		<hr>
-		{% for entry in entries %}
-		{% if entry.entry_type == 'report' %}
-		<div class="report">
-			<h3>
-				{% if entry.report.display.title is defined %}
-				{{entry.report.display.title}}
-				{% else %}
-				{{entry.report.name}}
-				{% endif %}
-			</h3>
-			<hr>
-			<div class="content" id="report_{{entry.report.id}}"></div>
+		<div class="entries">
+			{% for entry in entries %}
+			{% if entry.entry_type == 'report' %}
+			<div class="report w-{{entry.width}}">
+				<h3>
+					{% if entry.report.display.title is defined %}
+					{{entry.report.display.title}}
+					{% else %}
+					{{entry.report.name}}
+					{% endif %}
+				</h3>
+				<hr>
+				<div class="content" id="report_{{entry.report.id}}"></div>
+			</div>
+			{% endif %}
+			{% endfor %}
 		</div>
-		{% endif %}
-		{% endfor %}
 	</div>
 	<script src="/assets/js/vue.min.js"></script>
 	<script src="/assets/js/axios.min.js"></script>

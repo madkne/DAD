@@ -91,7 +91,51 @@ export interface ReportModel extends _BaseModel {
     display?: {
         title?: string;
         description?: string;
-    }
+    };
+    order?: number;
+}
+
+
+export interface ProjectPipeModel extends _BaseModel {
+    project_id: number;
+    name: string;
+    /**
+     * @default run_js_script
+     */
+    type: 'run_js_script';// | 'call_api';//TODO:
+    /**
+     * @default after_query
+     */
+    event: 'after_query';
+    /**
+     * starts with http:// or https://
+     */
+    api_endpoint?: string;
+    /**
+     * @default get
+     */
+    api_method?: 'get' | 'post' | 'put';
+    /**
+     * @example function boot(inputs) {
+     * @example var result = inputs['query_result'];
+     * @example return result;
+     * 
+     */
+    js_script?: string;
+    settings?: {};
+}
+
+export type ProjectPipeDefinition = Omit<ProjectPipeModel, 'id' | 'project_id' | 'created_at' | 'updated_at' | 'deleted_at'>;
+
+
+export interface ReportPipeEntryModel {
+    id?: number;
+    project_id: number;
+    report_id: number;
+    pipe_id: number;
+    order?: number;
+    created_at?: number;
+    updated_at?: number;
 }
 
 

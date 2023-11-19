@@ -39,7 +39,7 @@ export class FormDataParser extends Middleware {
          });
          bb.on('field', (name, val, info) => {
             coreRequest.req['fields'][name] = val;
-            debugLog(`Field [${name}]: value: %j`, val);
+            debugLog('form-data', `Field [${name}]: value: ${val}`);
          });
          bb.on('close', () => {
             // console.log('Done parsing form!');

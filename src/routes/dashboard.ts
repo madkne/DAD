@@ -111,7 +111,7 @@ export const apis: ApiRoute[] = [
                         },
                         width: {
                             type: "string",
-                            default: '12-12',
+                            default: '10-10',
                             enum: DashboardEntryWidths,
                         },
                         height: {

@@ -1,12 +1,12 @@
 import { DataTypes, Model } from 'sequelize';
 import { Global } from '../../global';
-import { ReportModel } from './interfaces';
+import { ProjectPipeModel } from './interfaces';
 
-export class Report extends Model<ReportModel> { }
+export class ProjectPipe extends Model<ProjectPipeModel> { }
 
 
 export function load() {
-    return Report.init({
+    return ProjectPipe.init({
         // Model attributes are defined here
         id: {
             type: DataTypes.BIGINT,
@@ -14,23 +14,21 @@ export function load() {
             primaryKey: true,
         },
         project_id: DataTypes.BIGINT,
-        source_id: DataTypes.BIGINT,
         name: DataTypes.STRING,
-        mode: DataTypes.STRING,
-        refresh_time: DataTypes.BIGINT,
-
+        type: DataTypes.STRING,
+        event: DataTypes.STRING,
+        api_endpoint: DataTypes.STRING,
+        api_method: DataTypes.STRING,
+        js_script: DataTypes.TEXT,
         settings: DataTypes.JSON(),
-        display: DataTypes.JSON(),
-        data: DataTypes.JSON(),
-        order: DataTypes.BIGINT,
 
         created_at: DataTypes.DATE(6),
         updated_at: DataTypes.DATE(6),
         deleted_at: DataTypes.DATE(6),
     }, {
         sequelize: Global.IDB.dbConn,
-        modelName: 'Report',
-        tableName: 'reports',
+        modelName: 'ProjectPipe',
+        tableName: 'project_pipes',
         createdAt: 'created_at',
         updatedAt: 'updated_at',
         deletedAt: 'deleted_at',
