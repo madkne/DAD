@@ -123,6 +123,10 @@ export interface ProjectPipeModel extends _BaseModel {
      */
     js_script?: string;
     settings?: {};
+    /**
+     * pipe must be success, or fail all pipes at all!
+     */
+    required?: boolean;
 }
 
 export type ProjectPipeDefinition = Omit<ProjectPipeModel, 'id' | 'project_id' | 'created_at' | 'updated_at' | 'deleted_at'>;

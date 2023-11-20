@@ -20,6 +20,10 @@ export function load() {
         api_endpoint: DataTypes.STRING,
         api_method: DataTypes.STRING,
         js_script: DataTypes.TEXT,
+        required: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        },
         settings: DataTypes.JSON(),
 
         created_at: DataTypes.DATE(6),

@@ -25,6 +25,7 @@
 
 ## TODO
 
+- [x] using pipes
 - [ ] complete simple dashboard
 - [ ] cache report queries
 - [ ] using ORM language (with loops and variables)

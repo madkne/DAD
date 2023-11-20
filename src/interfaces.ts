@@ -254,3 +254,9 @@ export interface UserTokenResponse {
     lifetime: number;
     expired_time: number;
 }
+
+export interface ProjectPipeResponse {
+    error?: string;
+    status: 'fetal' | 'success' | 'warning';
+    data: any[];
+}

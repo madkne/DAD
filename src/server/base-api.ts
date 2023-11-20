@@ -315,10 +315,12 @@ export class BaseAPI {
         return project.toJSON();
     }
     /*************************************** */
-    async findReportByName(name: string): Promise<ReportModel> {
+    async findReportByName(name: string, project_id?: number): Promise<ReportModel> {
         const report = await Report.findOne({ where: { name } });
         if (!report) return this.error404('not found such report') as any;
-        return report.toJSON();
+        const reportJson = report.toJSON();
+        if (project_id && reportJson.project_id != project_id) return this.error404('not found such report in this project') as any;
+        return reportJson;
     }
     /*************************************** */
     async findPipeByName(name: string, project_id?: number): Promise<ProjectPipeModel> {

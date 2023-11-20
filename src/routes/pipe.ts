@@ -53,6 +53,7 @@ function boot(inputs) {
     return result;
 }
 \`\`\`
+input variables: \`query_result: []\`, \`pipe: {}\`, \`report: {}\`
         `,
         parameters: [
             {
@@ -82,6 +83,56 @@ function boot(inputs) {
         responses: {
             '200': {
                 description: 'success updated project pipe js script',
+            },
+        }
+
+    },
+
+    {
+        method: 'POST',
+        path: 'entry/add',
+        functionName: 'addPipeEntry',
+        des: 'add an existing project pipe to an existing report',
+        parameters: [
+            {
+                name: 'request',
+                in: 'body',
+                required: true,
+                type: 'object',
+                schema: {
+                    type: "object",
+                    properties: {
+                        project_name: {
+                            type: "string",
+                            default: 'project1',
+                            required: true,
+                        },
+                        pipe_name: {
+                            type: "string",
+                            default: 'pipe1',
+                            required: true,
+                        },
+                        report_name: {
+                            type: "string",
+                            default: 'report1',
+                            required: true,
+                        },
+                        order: {
+                            type: "number",
+                            default: 1,
+                            description: "bigger order is higher priority"
+                        },
+                    },
+                }
+            },
+        ],
+        usedDefinitions: ['ReportPipeEntryModel'],
+        responses: {
+            '200': {
+                description: 'success created report pipe entry',
+                schema: {
+                    "$ref": "#/definitions/ReportPipeEntryModel"
+                },
             },
         }
 
