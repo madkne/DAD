@@ -1,6 +1,10 @@
 
 # Data Analytics For Developers (DAD)
 
+make your custom dashboards just with api endpoints!
+
+![](./public/assets/images/dashboard1.png)
+
 ## Get started
 
 1. clone DAD source
@@ -22,7 +26,10 @@
 [GET] http://localhost:8082/api/v1/server/install
 ```
 
+## Documentation
 
+- after, install DAD, you can access to swagger API docs.
+- [Configs](./docs/configs.md)
 ## TODO
 
 - [x] using pipes
